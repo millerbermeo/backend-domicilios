@@ -29,7 +29,7 @@ export class Pedidos {
     estados: EstadosPedidos
 
     @ManyToOne(() => Repartidor, (repartidor) => repartidor.pedidos)
-    repartidor: Repartidor
+    repartidor: Repartidor[]
 
     @ManyToOne(() => User, user => user.cliente)
     user: User

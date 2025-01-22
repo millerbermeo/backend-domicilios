@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn, } from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn, } from 'typeorm';
 import { Pedidos } from './pedidos.entity';
 import { EstadoRepartidor } from '../enums/disponibilidad.enum';
 
@@ -8,10 +8,10 @@ export class Repartidor {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(() => Pedidos, (pedidos) => pedidos.repartidor)
-    pedidos: Pedidos[]
+    @OneToMany(() => Pedidos, (pedidos) => pedidos.repartidor)
+    pedidos: Pedidos
 
-    @Column({ type: 'enum', enum: EstadoRepartidor, default: EstadoRepartidor.DISPONIBLE})
+    @Column({ type: 'enum', enum: EstadoRepartidor, default: EstadoRepartidor.DISPONIBLE })
     estado: EstadoRepartidor.OCUPADO | EstadoRepartidor.DISPONIBLE
 
     @CreateDateColumn({ type: "timestamp" })
@@ -22,5 +22,9 @@ export class Repartidor {
 
     @UpdateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)", onUpdate: "CURRENT_TIMESTAMP(6)" })
     public updated_at: Date;
+
+    @OneToOne(() => Repartidor)
+    @JoinColumn()
+    repartidor: Repartidor
 
 }

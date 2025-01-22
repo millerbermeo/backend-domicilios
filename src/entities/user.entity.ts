@@ -48,7 +48,5 @@ export class User {
   @OneToMany(() => Pedidos, pedido => pedido.user)
   cliente: Pedidos[]
 
-  @OneToOne(() => Repartidor)
-  @JoinColumn() 
-  repartidor: Repartidor
+  
 }
