@@ -33,7 +33,7 @@ export class User {
   @Column({ nullable: true })
   foto: string;
 
-  @Column({ type: 'enum', enum: EstadoUser, default: EstadoUser.ACTIVO})
+  @Column({ type: 'enum', enum: EstadoUser, default: EstadoUser.ACTIVO })
   estado: EstadoUser.INACTIVO | EstadoUser.ACTIVO
 
   @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" })
@@ -43,10 +43,11 @@ export class User {
   public updated_at: Date;
 
   @ManyToOne(() => Roles, roles => roles.usuario)
-  roles: Roles
+  @JoinColumn({ name: 'rolesid' })  // Aquí especificas el nombre de la columna en la base de datos
+  roles: Roles;
 
   @OneToMany(() => Pedidos, pedido => pedido.user)
   cliente: Pedidos[]
 
-  
+
 }

@@ -1,0 +1,30 @@
+version: '2'
+services:
+  postgres:
+    image: 'postgres:latest'
+    restart: always
+    volumes:
+      - './postgres_data:/var/lib/postgresql/data'
+    environment:
+      - POSTGRES_PASSWORD=2506
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=pedidos
+    ports:
+      - '5432:5432'
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - PORT=3000
+      - DB_HOST=postgres
+      - DB_TYPE=postgres
+      - DB_USER=postgres
+      - DB_DATABASE=pedidos
+      - DB_PASSWORD=2506
+      - DB_PORT=5432
+    ports:
+      - '3000:3000'
+    depends_on:
+      - postgres

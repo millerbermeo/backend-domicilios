@@ -1,4 +1,16 @@
 import { DataSource } from "typeorm";
+import dotenv from "dotenv"
+dotenv.config();
+
+const Pool = require('pg').Pool
+
+export const pool = new Pool({
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_DATABASE,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
+});
 
 export const connection = new DataSource({
   type: 'postgres',
@@ -14,13 +26,4 @@ export const connection = new DataSource({
 });
 
 
-const Pool = require('pg').Pool
-export const pool = new Pool({
-  type: 'postgres',
-  user: 'postgres',
-  host: 'localhost',
-  database: 'pedidos',
-  password: '2506',
-  port: 5432,
-})
 

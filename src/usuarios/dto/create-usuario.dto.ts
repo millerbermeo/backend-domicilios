@@ -1,36 +1,36 @@
 import { IsString, IsInt, IsOptional, IsEmail, IsEnum } from 'class-validator';
 import { EstadoUser } from '../../enums/estado.enum';
 
-export class CreateUsuariosDto {
-
-    @IsString()
+export class CreateUsuarioDto {
+    @IsString({ message: 'El nombre es obligatorio y debe ser una cadena de texto.' })
     nombre: string;
 
     @IsOptional()
-    @IsString()
+    @IsString({ message: 'El apellido, si se proporciona, debe ser una cadena de texto.' })
     apellido: string;
 
-    @IsString()
-    identificacion: string
+    @IsString({ message: 'La identificación es obligatoria y debe ser una cadena de texto.' })
+    identificacion: string;
 
     @IsOptional()
-    @IsEmail()
-    email: string
+    @IsEmail({}, { message: 'Si se proporciona, el correo debe ser válido.' })
+    email: string;
 
-    @IsString()
-    telefono: string
-
-    @IsOptional()
-    @IsString()
-    foto: string
+    @IsString({ message: 'El teléfono es obligatorio y debe ser una cadena de texto.' })
+    telefono: string;
 
     @IsOptional()
-    @IsString()
-    direccion: string
+    @IsString({ message: 'La foto, si se proporciona, debe ser una cadena de texto.' })
+    foto: string;
 
-    @IsEnum(EstadoUser)
-    estado: string
-    
-    @IsInt()
-    roles: number
+    @IsOptional()
+    @IsString({ message: 'La dirección, si se proporciona, debe ser una cadena de texto.' })
+    direccion: string;
+
+    @IsEnum(EstadoUser, { message: 'El estado debe ser uno de los valores de EstadoUser.' })
+    estado: string;
+
+    @IsOptional()
+    @IsInt({ message: 'El rol debe ser un número entero.' })
+    roles: number;
 }
